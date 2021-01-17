@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 mongoose.connection.once('connected', () => {
-  console.log('MongoDB is up-n-running');
+  console.log('MongoDB is up-&-running');
 });
 
 // Routes (INDUCES)
@@ -52,9 +52,7 @@ app.get('/nerdvana/newItem', (req, res) => {
 app.get('/nerdvana/:id', (req, res) => {
   Product.findByIdAndDelete(req.params.id, (err, deletedProducts) => {
     if (!err) {
-      res.status(200).render('Index', {
-        Product: foundProducts,
-      });
+      res.redirect('/nerdvana');
     } else {
       res.status(400).send(err);
     }
@@ -62,12 +60,57 @@ app.get('/nerdvana/:id', (req, res) => {
 });
 
 // Update
+app.put('/nerdvana/:id', (req, res) => {
+  Product.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    (err, updatedProducts) => {
+      if (!err) {
+        res.redirect('/nerdvana/:id');
+      } else {
+        res.status(400).send(err);
+      }
+    }
+  );
+});
 
 // Create
+app.post('/nerdvana', (req, res) => {
+  Log.create(req.body, (err, createdProduct) => {
+    if (!err) {
+      res.redirect('/nerdvana');
+    } else {
+      res.status(400).send(err);
+    }
+  });
+});
 
 // Edit
+app.get('/nerdvana/:id/edit', (req, res) => {
+  Log.findById(req.params.id, (err, foundProduct) => {
+    if (!err) {
+      res.status(200).render('Edit', {
+        Product: foundProduct,
+      });
+    } else {
+      res.status(400).send(err);
+    }
+  });
+});
 
 // Show
+app.get('/nerdvana/:id', (req, res) => {
+  Log.findById(req.params.id, (err, foundProduct) => {
+    if (!err) {
+      res.status(200).render('Show', {
+        Product: foundProduct,
+      });
+    } else {
+      res.status(400).send(err);
+    }
+  });
+});
 
 // App Listening on
 app.listen(PORT, () => {
