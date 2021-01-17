@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const PORT = 3000;
+const Product = require('./models/product');
 
 // Middleware
 // Body Parser Middleware to give us access to req.body
@@ -30,10 +31,35 @@ mongoose.connection.once('connected', () => {
 // Routes (INDUCES)
 
 // Index
+app.get('/nerdvana', (req, res) => {
+  Product.find({}, (err, foundProducts) => {
+    if (!err) {
+      res.status(200).render('Index', {
+        Product: foundProducts,
+      });
+    } else {
+      res.status(400).send(err);
+    }
+  });
+});
 
 // New
+app.get('/nerdvana/newItem', (req, res) => {
+  res.render('New.jsx');
+});
 
 // Delete
+app.get('/nerdvana/:id', (req, res) => {
+  Product.findByIdAndDelete(req.params.id, (err, deletedProducts) => {
+    if (!err) {
+      res.status(200).render('Index', {
+        Product: foundProducts,
+      });
+    } else {
+      res.status(400).send(err);
+    }
+  });
+});
 
 // Update
 
