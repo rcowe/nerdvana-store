@@ -2,24 +2,28 @@ const React = require('react');
 const AppLayout = require('./layouts/AppLayout');
 const Post = require('./components/Post');
 const Button = require('./components/Button');
+
 class Index extends React.Component {
   render() {
-    const theItem = this.props.nerdvana;
+    // const theItem = this.props.nerdvana;
     return (
       <AppLayout>
-        <a href="/nerdvana/new">Add New Item</a>
+        <a href="/nerdvana/newItem">Add New Item</a>
         <ul>
-          {theItem.nerdvana.map((nerdvana) => {
+          {this.props.nerdvana.map((nerdvanaItem) => {
+            console.log('accessed map func, 14');
             return (
               <Post
-                key={nerdvana._id}
-                name={nerdvana.name}
-                img={}
-                price={nerdvana.price}
-                qty={nerdvana.qty}
+                key={nerdvanaItem._id}
+                name={nerdvanaItem.name}
+                description={nerdvanaItem.description}
+                // img={}
+                price={nerdvanaItem.price}
+                qty={nerdvanaItem.qty}
               >
-                <Button>Show More</Button>
-                <Button>Add to Cart</Button>
+                <a href={`/nerdvana/${nerdvanaItem._id}`}>Go to Pages:</a>
+                {/* <Button>Show More</Button>
+                <Button>Add to Cart</Button> */}
               </Post>
             );
           })}

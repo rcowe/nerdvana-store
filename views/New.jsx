@@ -1,11 +1,30 @@
 const React = require('react');
+const AppLayout = require('./layouts/AppLayout');
 
 class New extends React.Component {
   render() {
     return (
-      <div>
-        <h1>This is the New Page, Add Items</h1>
-      </div>
+      <AppLayout title={'New Page'}>
+        <form action="/nerdvana" method="POST">
+          <label>
+            {' '}
+            Item Name: <input type="text" name="name" />
+          </label>
+          <label>
+            {' '}
+            Description: <input type="text" name="description" />
+          </label>
+          <label>
+            {' '}
+            Price: <input type="Number " name="price" />
+          </label>
+          <label>
+            {' '}
+            Quantity: <input type="Number " name="qty" />
+          </label>
+          <input type="submit" value={'Add a Product'} />
+        </form>
+      </AppLayout>
     );
   }
 }

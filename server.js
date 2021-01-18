@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const PORT = 3000;
-const Product = require('./models/product');
+const Products = require('./models/product');
 
 // Middleware
 // Body Parser Middleware to give us access to req.body
@@ -32,7 +32,7 @@ mongoose.connection.once('connected', () => {
 
 // Index
 app.get('/nerdvana', (req, res) => {
-  Product.find({}, (err, foundProducts) => {
+  Products.find({}, (err, foundProducts) => {
     if (!err) {
       res.status(200).render('Index', {
         Products: foundProducts,
@@ -45,12 +45,12 @@ app.get('/nerdvana', (req, res) => {
 
 // New
 app.get('/nerdvana/newItem', (req, res) => {
-  res.render('New.jsx');
+  res.render('New');
 });
 
 // Delete
 app.get('/nerdvana/:id', (req, res) => {
-  Product.findByIdAndDelete(req.params.id, (err, deletedProducts) => {
+  Products.findByIdAndDelete(req.params.id, (err, deletedProducts) => {
     if (!err) {
       res.redirect('/nerdvana');
     } else {
@@ -61,7 +61,7 @@ app.get('/nerdvana/:id', (req, res) => {
 
 // Update
 app.put('/nerdvana/:id', (req, res) => {
-  Product.findByIdAndUpdate(
+  Products.findByIdAndUpdate(
     req.params.id,
     req.body,
     { new: true },
@@ -77,7 +77,7 @@ app.put('/nerdvana/:id', (req, res) => {
 
 // Create
 app.post('/nerdvana', (req, res) => {
-  Log.create(req.body, (err, createdProduct) => {
+  Products.create(req.body, (err, createdProduct) => {
     if (!err) {
       res.redirect('/nerdvana');
     } else {
@@ -88,7 +88,7 @@ app.post('/nerdvana', (req, res) => {
 
 // Edit
 app.get('/nerdvana/:id/edit', (req, res) => {
-  Log.findById(req.params.id, (err, foundProduct) => {
+  Products.findById(req.params.id, (err, foundProduct) => {
     if (!err) {
       res.status(200).render('Edit', {
         Product: foundProduct,
@@ -101,7 +101,7 @@ app.get('/nerdvana/:id/edit', (req, res) => {
 
 // Show
 app.get('/nerdvana/:id', (req, res) => {
-  Log.findById(req.params.id, (err, foundProduct) => {
+  Products.findById(req.params.id, (err, foundProduct) => {
     if (!err) {
       res.status(200).render('Show', {
         Product: foundProduct,
@@ -110,6 +110,43 @@ app.get('/nerdvana/:id', (req, res) => {
       res.status(400).send(err);
     }
   });
+});
+
+//Seed, example;
+
+app.get('/nerdvana/seed/newproducts', async (req, res) => {
+  const newProducts = [
+    {
+      name: 'Beans',
+      description:
+        'A small pile of beans. Buy more beans for a big pile of beans.',
+      img:
+        'https://cdn3.bigcommerce.com/s-a6pgxdjc7w/products/1075/images/967/416130__50605.1467418920.1280.1280.jpg?c=2',
+      price: 5,
+      qty: 99,
+    },
+    {
+      name: 'Bones',
+      description: "It's just a bag of bones.",
+      img: 'http://bluelips.com/prod_images_large/bones1.jpg',
+      price: 25,
+      qty: 1,
+    },
+    {
+      name: 'Bins',
+      description: 'A stack of colorful bins for your beans and bones.',
+      img: 'http://www.clipartbest.com/cliparts/9cz/rMM/9czrMMBcE.jpeg',
+      price: 7000,
+      qty: 1,
+    },
+  ];
+
+  try {
+    const seedItems = await Products.create(newProducts);
+    res.send(seedItems);
+  } catch (err) {
+    res.send(err.message);
+  }
 });
 
 // App Listening on
