@@ -35,7 +35,7 @@ app.get('/nerdvana', (req, res) => {
   Product.find({}, (err, foundProducts) => {
     if (!err) {
       res.status(200).render('Index', {
-        Product: foundProducts,
+        Products: foundProducts,
       });
     } else {
       res.status(400).send(err);
