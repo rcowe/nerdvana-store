@@ -12,32 +12,45 @@ class Edit extends React.Component {
           <label>
             Item Name:{' '}
             <input type="text" name="name" value={this.props.Product.name} />
-          </label>
+          </label>{' '}
+          <br />
           <label>
+            {' '}
+            <br />
             Description:{' '}
             <input
               type="text"
               name="description"
               value={this.props.Product.description}
             />
-          </label>
+          </label>{' '}
+          <br />
           <label>
+            {' '}
+            <br />
             Image:{' '}
             <input type="text" name="img" value={this.props.Product.img} />
-          </label>
+          </label>{' '}
+          <br />
           <label>
+            {' '}
+            <br />
             Price:{' '}
             <input
               type="Number "
               name="price"
               value={this.props.Product.price}
             />
-          </label>
+          </label>{' '}
+          <br />
           <label>
+            {' '}
+            <br />
             Quantity:{' '}
             <input type="Number" name="qty" value={this.props.Product.qty} />
-          </label>
-          <input type="submit" value={'Edit an Existing Product'} />
+          </label>{' '}
+          <br />
+          <input type="submit" value={'Edit an Existing Product'} /> <br />
         </form>
       </AppLayout>
     );

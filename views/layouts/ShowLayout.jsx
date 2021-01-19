@@ -19,9 +19,13 @@ class ShowLayout extends React.Component {
             {this.props.description}
           </div>
 
-          <div className="single-item-price">{this.props.price}</div>
+          <div className="single-item-price">
+            Current Price: {this.props.price}
+          </div>
 
-          <div className="single-item-qty">{this.props.qty}</div>
+          <div className="single-item-qty">
+            Current Quantity: {this.props.qty}
+          </div>
 
           {this.props.children}
         </div>

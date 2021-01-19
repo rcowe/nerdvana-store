@@ -105,6 +105,24 @@ app.post('/nerdvana', (req, res) => {
   });
 });
 
+// Buy Button
+app.put('/nerdvana/:id/buy', (req, res) => {
+  Products.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    (err, updatedProducts) => {
+      if (!err) {
+        updatedProducts.qty -= 1;
+        updatedProducts.save();
+        res.status(200).redirect('/nerdvana');
+      } else {
+        res.status(400).send(err);
+      }
+    }
+  );
+});
+
 // Edit
 app.get('/nerdvana/:id/edit', (req, res) => {
   Products.findById(req.params.id, (err, foundProduct) => {
@@ -131,35 +149,24 @@ app.get('/nerdvana/:id', (req, res) => {
   });
 });
 
-// Buy Button Route
-// app.put('nerdvana/:id', async (req, res) => {
-//   try {
-//     await Products.findByIdAndUpdate(req.params.id, { $inc: { qty: -1 } });
-//     res.render('Show');
-//     // res.redirect('back');
-//   } catch (err) {
-//     res.send(err.message);
-//   }
+// // Update
+// app.put('/nerdvana/:id/buy', (req, res) => {
+//   Products.findByIdAndUpdate(
+//     req.params.id,
+//     req.body,
+//     { new: true },
+//     { $inc: { qty: -1 } },
+//     (err, boughtProducts) => {
+//       if (!err) {
+//         res.status(200).redirect('Show', {
+//           Product: boughtProducts,
+//         });
+//       } else {
+//         res.status(400).send(err);
+//       }
+//     }
+//   );
 // });
-
-// Update
-app.put('/nerdvana/:id/buy', (req, res) => {
-  Products.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-    { $inc: { qty: -1 } },
-    (err, boughtProducts) => {
-      if (!err) {
-        res.status(200).redirect('Show', {
-          Product: boughtProducts,
-        });
-      } else {
-        res.status(400).send(err);
-      }
-    }
-  );
-});
 
 // App Listening on
 app.listen(PORT, () => {
