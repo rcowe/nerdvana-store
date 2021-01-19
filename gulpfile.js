@@ -4,15 +4,16 @@ const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const exec = require('child_process').exec;
 
+// default task / main task
 gulp.task('default', (cb) => {
-  exec('npm run styles', (err, stdout, stderr) => {
-    if (!err) {
-      console.log(stdout);
-      console.log(stderr);
-    } else {
-      cb(err);
-    }
-  });
+  // exec('npm run styles', (err, stdout, stderr) => {
+  //   if (!err) {
+  //     console.log(stdout);
+  //     console.log(stderr);
+  //   } else {
+  //     cb(err);
+  //   }
+  // });
   gulp.watch('./src/css/**/*scss', gulp.task('styles'));
   nodemon({
     sript: 'server.js',
@@ -21,6 +22,7 @@ gulp.task('default', (cb) => {
   cb();
 });
 
+// styles gulp
 gulp.task('styles', (cb) => {
   gulp
     .src('./src/css/**/*.scss')

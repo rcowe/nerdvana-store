@@ -5,12 +5,14 @@ const app = express();
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const PORT = 3000;
-const Products = require('./models/product');
+const Products = require('./models/product.js');
+const seedData = require('./data/seed.js');
+const seed = require('./data/seed.js');
 
 // Middleware
 // Body Parser Middleware to give us access to req.body
-app.use(express.urlencoded({ extended: true })); // form data
-app.use(express.json()); // raw json data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
 
@@ -19,8 +21,9 @@ app.engine('jsx', require('express-react-views').createEngine());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
   useCreateIndex: true,
+  useFindAndModify: true,
+  useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
@@ -30,7 +33,7 @@ mongoose.connection.once('connected', () => {
 
 // Routes (INDUCES)
 
-// Index
+// Index;
 app.get('/nerdvana', (req, res) => {
   Products.find({}, (err, foundProducts) => {
     if (!err) {
@@ -43,13 +46,24 @@ app.get('/nerdvana', (req, res) => {
   });
 });
 
+// adding data
+app.get('/nerdvana/seed', (req, res) => {
+  Products.create(seedData, (err) => {
+    if (!err) {
+      res.redirect('/nerdvana');
+    } else {
+      res.status(400).send(err);
+    }
+  });
+});
+
 // New
 app.get('/nerdvana/newItem', (req, res) => {
   res.render('New');
 });
 
 // Delete
-app.get('/nerdvana/:id', (req, res) => {
+app.delete('/nerdvana/:id', (req, res) => {
   Products.findByIdAndDelete(req.params.id, (err, deletedProducts) => {
     if (!err) {
       res.redirect('/nerdvana');
@@ -67,7 +81,7 @@ app.put('/nerdvana/:id', (req, res) => {
     { new: true },
     (err, updatedProducts) => {
       if (!err) {
-        res.redirect('/nerdvana/:id');
+        res.redirect('/nerdvana');
       } else {
         res.status(400).send(err);
       }
@@ -75,9 +89,9 @@ app.put('/nerdvana/:id', (req, res) => {
   );
 });
 
-// Create
+// Create, post page
 app.post('/nerdvana', (req, res) => {
-  Products.create(req.body, (err, createdProduct) => {
+  Products.create(req.body, (err) => {
     if (!err) {
       res.redirect('/nerdvana');
     } else {
@@ -112,42 +126,42 @@ app.get('/nerdvana/:id', (req, res) => {
   });
 });
 
-//Seed, example;
+// //Seed, example;
 
-app.get('/nerdvana/seed/newproducts', async (req, res) => {
-  const newProducts = [
-    {
-      name: 'Beans',
-      description:
-        'A small pile of beans. Buy more beans for a big pile of beans.',
-      img:
-        'https://cdn3.bigcommerce.com/s-a6pgxdjc7w/products/1075/images/967/416130__50605.1467418920.1280.1280.jpg?c=2',
-      price: 5,
-      qty: 99,
-    },
-    {
-      name: 'Bones',
-      description: "It's just a bag of bones.",
-      img: 'http://bluelips.com/prod_images_large/bones1.jpg',
-      price: 25,
-      qty: 1,
-    },
-    {
-      name: 'Bins',
-      description: 'A stack of colorful bins for your beans and bones.',
-      img: 'http://www.clipartbest.com/cliparts/9cz/rMM/9czrMMBcE.jpeg',
-      price: 7000,
-      qty: 1,
-    },
-  ];
+// app.get('/nerdvana/seed/newproducts', async (req, res) => {
+//   const newProducts = [
+//     {
+//       name: 'Beans',
+//       description:
+//         'A small pile of beans. Buy more beans for a big pile of beans.',
+//       img:
+//         'https://cdn3.bigcommerce.com/s-a6pgxdjc7w/products/1075/images/967/416130__50605.1467418920.1280.1280.jpg?c=2',
+//       price: 5,
+//       qty: 99,
+//     },
+//     {
+//       name: 'Bones',
+//       description: "It's just a bag of bones.",
+//       img: 'http://bluelips.com/prod_images_large/bones1.jpg',
+//       price: 25,
+//       qty: 1,
+//     },
+//     {
+//       name: 'Bins',
+//       description: 'A stack of colorful bins for your beans and bones.',
+//       img: 'http://www.clipartbest.com/cliparts/9cz/rMM/9czrMMBcE.jpeg',
+//       price: 7000,
+//       qty: 1,
+//     },
+//   ];
 
-  try {
-    const seedItems = await Products.create(newProducts);
-    res.send(seedItems);
-  } catch (err) {
-    res.send(err.message);
-  }
-});
+//   try {
+//     const seedItems = await Products.create(newProducts);
+//     res.send(seedItems);
+//   } catch (err) {
+//     res.send(err.message);
+//   }
+// });
 
 // App Listening on
 app.listen(PORT, () => {

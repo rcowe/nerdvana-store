@@ -6,11 +6,11 @@ class AppLayout extends React.Component {
       <html>
         <head>
           <link rel="stylesheet" href="/css/main.css" />
-          <title>{this.props.nerdvana.name}</title>
+          <title>{this.props.name}</title>
         </head>
         <body>
-          <div>
-            <h1>{this.props.nerdvana.name}</h1>
+          <div className={this.props.pageClass}>
+            <h1>{this.props.name}</h1>
             {this.props.children}
           </div>
         </body>
