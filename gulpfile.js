@@ -6,14 +6,14 @@ const exec = require('child_process').exec;
 
 // default task / main task
 gulp.task('default', (cb) => {
-  // exec('npm run styles', (err, stdout, stderr) => {
-  //   if (!err) {
-  //     console.log(stdout);
-  //     console.log(stderr);
-  //   } else {
-  //     cb(err);
-  //   }
-  // });
+  exec('npm run styles', (err, stdout, stderr) => {
+    if (!err) {
+      console.log(stdout);
+      console.log(stderr);
+    } else {
+      cb(err);
+    }
+  });
   gulp.watch('./src/css/**/*scss', gulp.task('styles'));
   nodemon({
     sript: 'server.js',

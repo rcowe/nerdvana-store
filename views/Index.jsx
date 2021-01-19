@@ -1,18 +1,18 @@
 const React = require('react');
 const AppLayout = require('./layouts/AppLayout');
-const Post = require('./components/Post');
-const Button = require('./components/Button');
+// const Post = require('./components/Post');
+const IndexLayout = require('./layouts/IndexLayout');
+const BuyButton = require('./components/BuyButton');
 
 class Index extends React.Component {
   render() {
-    // const theItem = this.props.nerdvana;
     return (
       <AppLayout title={'Index Page'} pageClass={'index'}>
         <a href="/nerdvana/newItem">Add New Item</a>
         <ul>
           {this.props.Products.map((nerdvanaItem) => {
             return (
-              <Post
+              <IndexLayout
                 key={nerdvanaItem._id}
                 name={nerdvanaItem.name}
                 description={nerdvanaItem.description}
@@ -23,9 +23,13 @@ class Index extends React.Component {
                 <a href={`/nerdvana/${nerdvanaItem._id}`}>
                   See More About: {`${nerdvanaItem.name}`}
                 </a>
-                {/* <Button>Show More</Button>
-                <Button>Add to Cart</Button> */}
-              </Post>
+                <BuyButton
+                  endpoint={`/nerdvana/${nerdvanaItem._id}?_method=POST`}
+                  name={nerdvanaItem.name}
+                >
+                  <a href={`/nerdvana/${nerdvanaItem._id}/buy/`}>Buy</a>
+                </BuyButton>
+              </IndexLayout>
             );
           })}
         </ul>

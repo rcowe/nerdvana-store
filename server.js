@@ -7,7 +7,6 @@ const methodOverride = require('method-override');
 const PORT = 3000;
 const Products = require('./models/product.js');
 const seedData = require('./data/seed.js');
-const seed = require('./data/seed.js');
 
 // Middleware
 // Body Parser Middleware to give us access to req.body
@@ -15,6 +14,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
+
+// for me to check values are added:
+app.use((req, res, next) => {
+  console.log(req.body);
+  next();
+});
 
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
@@ -81,7 +86,7 @@ app.put('/nerdvana/:id', (req, res) => {
     { new: true },
     (err, updatedProducts) => {
       if (!err) {
-        res.redirect('/nerdvana');
+        res.redirect('/nerdvana/:id');
       } else {
         res.status(400).send(err);
       }
@@ -126,42 +131,35 @@ app.get('/nerdvana/:id', (req, res) => {
   });
 });
 
-// //Seed, example;
-
-// app.get('/nerdvana/seed/newproducts', async (req, res) => {
-//   const newProducts = [
-//     {
-//       name: 'Beans',
-//       description:
-//         'A small pile of beans. Buy more beans for a big pile of beans.',
-//       img:
-//         'https://cdn3.bigcommerce.com/s-a6pgxdjc7w/products/1075/images/967/416130__50605.1467418920.1280.1280.jpg?c=2',
-//       price: 5,
-//       qty: 99,
-//     },
-//     {
-//       name: 'Bones',
-//       description: "It's just a bag of bones.",
-//       img: 'http://bluelips.com/prod_images_large/bones1.jpg',
-//       price: 25,
-//       qty: 1,
-//     },
-//     {
-//       name: 'Bins',
-//       description: 'A stack of colorful bins for your beans and bones.',
-//       img: 'http://www.clipartbest.com/cliparts/9cz/rMM/9czrMMBcE.jpeg',
-//       price: 7000,
-//       qty: 1,
-//     },
-//   ];
-
+// Buy Button Route
+// app.put('nerdvana/:id', async (req, res) => {
 //   try {
-//     const seedItems = await Products.create(newProducts);
-//     res.send(seedItems);
+//     await Products.findByIdAndUpdate(req.params.id, { $inc: { qty: -1 } });
+//     res.render('Show');
+//     // res.redirect('back');
 //   } catch (err) {
 //     res.send(err.message);
 //   }
 // });
+
+// Update
+app.put('/nerdvana/:id/buy', (req, res) => {
+  Products.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    { $inc: { qty: -1 } },
+    (err, boughtProducts) => {
+      if (!err) {
+        res.status(200).redirect('Show', {
+          Product: boughtProducts,
+        });
+      } else {
+        res.status(400).send(err);
+      }
+    }
+  );
+});
 
 // App Listening on
 app.listen(PORT, () => {

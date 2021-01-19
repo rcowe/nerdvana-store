@@ -1,3 +1,85 @@
+div {
+  outline: 1px solid red;
+}
+
+.grid-container {
+  display: flex;
+  align-content: space-around;
+  flex-direction: row;
+  border: 10px;
+  border-color: #000000;
+  border-style: solid;
+}
+
+.page-header {
+  justify-content: center;
+}
+
+// .sidebar {
+//   background-color: lightblue;
+// }
+
+// .header-links {
+//   flex-direction: row;
+// }
+
 body {
-  background-color: red;
+  font-family: 'Lucida Console', 'Courier New', monospace;
+
+  .index {
+    .img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: attr(width) / attr(height);
+    }
+    .product-index-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .post-card__img {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      height: 0;
+      overflow: hidden;
+    }
+    .staff-picks {
+      color: grey;
+      align-content: space-around;
+    }
+  }
+  .show {
+    .img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: attr(width) / attr(height);
+    }
+    .single-item-image .single-layout {
+      max-width: 100%;
+      display: block;
+      box-sizing: border-box;
+      width: 40%;
+      float: left;
+      margin: 0 auto;
+      border: 1px solid #808080;
+      border-radius: 2px;
+    }
+    .single-item-description .single-layout {
+      width: 50%;
+      float: left;
+      margin-left: 10%;
+      min-height: 660px;
+    }
+    .single-item-description .single-layout .single-item-price {
+      display: block;
+      font-size: 2.4em;
+      color: #ccc;
+      text-decoration: line-through;
+    }
+    .single-item-name {
+      font-size: 3.6em;
+      font-weight: 500;
+    }
+  }
 }

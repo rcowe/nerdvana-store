@@ -1,2 +1,77 @@
+div {
+  outline: 1px solid red; }
+
+.grid-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: distribute;
+      align-content: space-around;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border: 10px;
+  border-color: #000000;
+  border-style: solid; }
+
+.page-header {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+
 body {
-  background-color: red; }
+  font-family: 'Lucida Console', 'Courier New', monospace; }
+  body .index .img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: attr(width)/attr(height); }
+  body .index .product-index-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    height: 100%; }
+  body .index .post-card__img {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 ratio */
+    height: 0;
+    overflow: hidden; }
+  body .index .staff-picks {
+    color: grey;
+    -ms-flex-line-pack: distribute;
+        align-content: space-around; }
+  body .show .img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: attr(width)/attr(height); }
+  body .show .single-item-image .single-layout {
+    max-width: 100%;
+    display: block;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 40%;
+    float: left;
+    margin: 0 auto;
+    border: 1px solid #808080;
+    border-radius: 2px; }
+  body .show .single-item-description .single-layout {
+    width: 50%;
+    float: left;
+    margin-left: 10%;
+    min-height: 660px; }
+  body .show .single-item-description .single-layout .single-item-price {
+    display: block;
+    font-size: 2.4em;
+    color: #ccc;
+    text-decoration: line-through; }
+  body .show .single-item-name {
+    font-size: 3.6em;
+    font-weight: 500; }

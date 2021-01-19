@@ -1,6 +1,6 @@
 const React = require('react');
 
-class Button extends React.Component {
+class DeleteButton extends React.Component {
   render() {
     return (
       <form action={this.props.endpoint} method="POST">
@@ -10,4 +10,4 @@ class Button extends React.Component {
   }
 }
 
-module.exports = Button;
+module.exports = DeleteButton;
