@@ -16,6 +16,7 @@ class IndexLayout extends React.Component {
                     src={`/img/${this.props.img} `}
                     width="500"
                     height="500"
+                    alt=""
                   />
                 </a>
               </div>
