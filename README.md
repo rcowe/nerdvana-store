@@ -53,5 +53,3 @@ Ensure controller can access your model:
 - Show Page where individual product shows, buy/delete/stock is visible
 - New & Edit Page where new item can be added and existing item can be amended 
 - Redirects: Create and Delete route should direct user to index
-
-#### Stretch goals 
