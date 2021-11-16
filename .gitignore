@@ -1,3 +1,7 @@
 node_modules
 .env
+<<<<<<< HEAD
 .idea
+=======
+.idea
+>>>>>>> 1a6d855a156384a939353a65db3d8a9ae46bac73

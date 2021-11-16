@@ -149,24 +149,24 @@ app.get('/nerdvana/:id', (req, res) => {
   });
 });
 
-// // Update
-// app.put('/nerdvana/:id/buy', (req, res) => {
-//   Products.findByIdAndUpdate(
-//     req.params.id,
-//     req.body,
-//     { new: true },
-//     { $inc: { qty: -1 } },
-//     (err, boughtProducts) => {
-//       if (!err) {
-//         res.status(200).redirect('Show', {
-//           Product: boughtProducts,
-//         });
-//       } else {
-//         res.status(400).send(err);
-//       }
-//     }
-//   );
-// });
+// Update
+app.put('/nerdvana/:id/buy', (req, res) => {
+  Products.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    { $inc: { qty: -1 } },
+    (err, boughtProducts) => {
+      if (!err) {
+        res.status(200).redirect('Show', {
+          Product: boughtProducts,
+        });
+      } else {
+        res.status(400).send(err);
+      }
+    }
+  );
+});
 
 // App Listening on
 app.listen(PORT, () => {

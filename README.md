@@ -3,45 +3,55 @@
 # App Title: Nerdvana
 #### A store for all things techy and nerdy. I do not own media.
 
-**## App Demo: **
+### App Demo: Not Hosted
 --------------
-**## Concept:**
-[Blank]
+### Concept:
+The goal of the store is to create a full CRUD project using JS, MongoDB and JSX/Node. 
 
-**## TLDR:**
-Better GOT ending..
+### TLDR:
+Nerdy tech store. 
 
-**## Technologies Used:**
+### Technologies Used:
 - HTML 
 - CSS 
 - JavaScript 
 - React
 - Express 
 - Mongoose / MongoDB
-- *Packages Installed*: 
+- Packages Installed:
+        Gulp, React, React-DOM, DotEnv, Express-React-Views, Method-Override
+        
 
-**### Credits:**
+### Credits:
+- Sideshow website
+- Buffy Vampire Slayer 
 
-**## Approach:** 
-### Overview 
-### Game development approach: 
+### Approach:
 
-Wireframe 
-TBC
+Inside the mongoose_store folder, set up Express with MVC architecture with the appropriate folders for models, views, and controllers.
 
-User stories 
-TBC
+Need to create seven RESTful routes. You can begin with your data-layer and test that everything works with cURL or Postman. Don't worry about what the BUY button does or where it goes just yet. Just set up your regular RESTful stuff.
 
-Development Plan: 
-TBC
+Make a Mongoose Schema in a products.js file for your products. The schema should have:
 
-Development Plan ONE 
-Development Plan Two Development Plan Three Development Plan Four 
+Set up validations for the price and qty (can't be less than zero) and make the name a required field.
 
-Minimum Viable Product TBC
+Create a model and export it.
 
-MVP ONE MVP Two MVP Three MVP Four Stretch goals TBC
+Connect to your Mongo server in server.js
 
-Stretch goals ONE Stretch goals Two Stretch goals Three Stretch goals Four Challenges: So many.
+Ensure controller can access your model:
 
-App Demo:
+    const Product = require('./models/products');
+
+
+#### Wireframe
+![GOT user story](NerdvanaStore.png)
+
+#### Minimum Viable Product TBC
+- Index Page where all products are displayed 
+- Show Page where individual product shows, buy/delete/stock is visible
+- New & Edit Page where new item can be added and existing item can be amended 
+- Redirects: Create and Delete route should direct user to index
+
+#### Stretch goals 
